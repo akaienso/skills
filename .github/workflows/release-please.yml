@@ -1,0 +1,36 @@
+name: Release Please
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # a queued push run can wedge; dispatch shakes it loose
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    name: release-please
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_APP_ID: ${{ secrets.RELEASE_APP_ID }}
+    steps:
+      # Release Please must not run as GITHUB_TOKEN: events from that token don't trigger other
+      # workflows, so CI would never run on the release PR and the ruleset would block it.
+      # Preferred: a GitHub App (RELEASE_APP_ID + RELEASE_APP_PRIVATE_KEY secrets).
+      # Accepted: a token in RELEASE_PLEASE_TOKEN. GITHUB_TOKEN is only the last-resort fallback.
+      - name: Create GitHub App token
+        id: app-token
+        if: env.RELEASE_APP_ID != ''
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
+      - name: Run Release Please
+        uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ steps.app-token.outputs.token || secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
