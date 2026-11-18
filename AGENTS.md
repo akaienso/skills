@@ -15,10 +15,15 @@ skills folder.
 Never commit, in any file, commit message, PR title or PR body:
 
 - secrets: API keys, tokens, passwords, private keys, certificates, `.env` files, session handles
-- client, customer, project, tenant or site names, IDs or URLs, and any personal details
+- names, IDs, URLs or personal details of the clients, sites, projects and people the skills are
+  used on (tenants, accounts, site URLs, email addresses)
 - absolute paths from someone's machine (`/Users/<name>/…`, `C:\Users\…`)
 - copies of third-party documentation or in-product guides; summarise and link instead
 - notes from a working session, test runs against a real project, or house rules of one team
+
+This repository's own identity is not private: its URL, issue and PR numbers, commit links in
+`CHANGELOG.md`, and the maintainer's name as copyright holder in `LICENSE` and as commit author
+are expected.
 
 Run `gitleaks git . --redact` before every push.
 
@@ -40,7 +45,7 @@ Run `gitleaks git . --redact` before every push.
 Full procedure: docs/RELEASE-WORKFLOW.md. The rules below are binding.
 
 Versions and CHANGELOG.md are written by Release Please, never by hand. Do not edit any
-version string, CHANGELOG.md, version.txt, or .release-please-manifest*.json.
+version string, CHANGELOG.md, or .release-please-manifest*.json.
 
 Branch flow: feat/* → PR → main. main is not a working branch. Direct pushes to protected
 branches are blocked.
