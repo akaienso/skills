@@ -15,15 +15,16 @@ skills folder.
 Never commit, in any file, commit message, PR title or PR body:
 
 - secrets: API keys, tokens, passwords, private keys, certificates, `.env` files, session handles
-- names, IDs, URLs or personal details of the clients, sites, projects and people the skills are
-  used on (tenants, accounts, site URLs, email addresses)
+- names, IDs or URLs of the clients, sites and projects the skills are used on (tenants,
+  accounts, site URLs)
+- personal details of anyone: email addresses, phone numbers, home addresses, private messages
 - absolute paths from someone's machine (`/Users/<name>/…`, `C:\Users\…`)
 - copies of third-party documentation or in-product guides; summarise and link instead
 - notes from a working session, test runs against a real project, or house rules of one team
 
-This repository's own identity is not private: its URL, issue and PR numbers, commit links in
-`CHANGELOG.md`, and the maintainer's name as copyright holder in `LICENSE` and as commit author
-are expected.
+This repository's own public identity is not covered by these rules: its URL, issue and PR
+numbers, commit links in `CHANGELOG.md`, commit authorship, and the copyright holder named in the
+repository's licence.
 
 Run `gitleaks git . --redact` before every push.
 
