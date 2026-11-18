@@ -115,5 +115,5 @@ reporting ([SECURITY.md](SECURITY.md)), not a public issue.
 
 ## Licence
 
-No licence has been chosen yet. Until one is added, normal copyright applies and the content may
-not be reused.
+[MIT](LICENSE). Product names (Etch, Etch Studio, EtchWP, AutomaticCSS) belong to their owners;
+the skills summarise and link to their documentation rather than copying it.
