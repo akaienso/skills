@@ -26,7 +26,7 @@ be exact and sourced.
 | `perf`, `revert` | Patch |
 | `docs`, `refactor`, `test`, `chore`, `ci`, `build`, `style` | No release on their own |
 
-Never edit `CHANGELOG.md`, `version.txt` or `.release-please-manifest.json`; Release Please writes
+Never edit `CHANGELOG.md` or `.release-please-manifest.json`; Release Please writes
 them. See [docs/RELEASE-WORKFLOW.md](docs/RELEASE-WORKFLOW.md).
 
 ## Writing a skill

@@ -6,7 +6,7 @@ This repository follows Rob Moore's Git release standard, trimmed to a single ch
 ## The non-negotiables
 
 1. **Release Please owns every version number and `CHANGELOG.md`.** Nobody hand-edits a
-   version string, a changelog entry, a tag, `version.txt`, or `.release-please-manifest.json`.
+   version string, a changelog entry, a tag, or `.release-please-manifest.json`.
 2. **Conventional Commits are required on everything mergeable.** Release Please reads commit
    messages to decide the version bump and the changelog. A commit that doesn't conform is
    invisible to the release.
@@ -77,4 +77,5 @@ history; it blocks deletion and force-pushes, with no bypass.
 1. Open a PR from `type/*` into `main` with a Conventional Commit title. Squash-merge it when the
    checks pass.
 2. Release Please opens or updates the release PR.
-3. Merge the release PR. It writes `CHANGELOG.md`, the manifest and `version.txt`, then tags.
+3. Merge the release PR. It writes `CHANGELOG.md` and the manifest, then tags. This repository has
+   no version string in source and no `version.txt`: the tag and the manifest carry the version.
