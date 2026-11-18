@@ -64,5 +64,4 @@ reporting (see [SECURITY.md](SECURITY.md)), and rotate any exposed secret straig
 
 ## Licence
 
-No licence has been chosen yet. Contributions will be licensed under the repository's licence
-once one is added.
+By contributing, you agree that your contributions are licensed under the [MIT License](LICENSE).
