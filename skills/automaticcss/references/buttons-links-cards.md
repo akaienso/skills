@@ -59,7 +59,10 @@ Locally scoped, override on any selector (a button, a section, a body class):
 }
 ```
 
-> Conflict: the variable list says `--btn-radius`; the same page's example uses `--btn-border-radius`. The toolkit lists both. Prefer `--btn-radius`; confirm in `tokens.md`.
+> Ruling (verified 2026-11-18 on a live ACSS 4 WordPress build): not a conflict.
+> Both `--btn-radius` and `--btn-border-radius` are generated with the same value
+> (99px there), alongside `--btn-border-width`. Prefer `--btn-radius`; do not
+> rewrite an existing `--btn-border-radius`.
 > Conflict: the toolkit also lists `--btn-width`, `--btn-justify-content`, `--btn-text-align`, which the ACSS 4 docs don't list. Unverified.
 
 Source: https://docs.automaticcss.com/buttons/button-variables

@@ -7,15 +7,16 @@ description: Use when styling an Etch Studio or EtchWP site that has AutomaticCS
 
 ACSS is **variable-first**: semantic BEM classes styled with ACSS tokens. Utility
 classes are the exception (buttons, `.bg--*`, `.smart-spacing`, a few others).
-With Etch, ACSS needs zero configuration on WordPress and is a project toggle in
-Studio. Pair with `etch-authoring` for where CSS goes.
+With Etch, ACSS needs no Etch-side configuration on WordPress — the plugin
+generates the CSS — and is a project toggle in Studio. Reading its tokens still
+needs the list below. Pair with `etch-authoring` for where CSS goes.
 
 ## Step 0: is ACSS on, and what does this project generate?
 
 | | Etch Studio | EtchWP |
 |---|---|---|
 | On? | `acss` listed in `etch.skills.list()` (none listed = off; `etch.acss.setEnabledAsync(true)` turns it on, after asking) | ACSS plugin active; Etch reports `integrations.acss.version` (toolkit) |
-| Live token/class list | `etch.skills.getReference('acss','tokens.md')` and `'classes.md'` | ACSS dashboard → **Cheat Sheet** (lists every class, variable and recipe the current settings generate); `wp acss settings list` |
+| Live token/class list | `etch.skills.getReference('acss','tokens.md')` and `'classes.md'` | ACSS dashboard → **Cheat Sheet** (lists every class, variable and recipe the current settings generate); `wp acss settings list`; driving a live builder through the Etch Connector, `etch.skills.getReference('acss','tokens.md' \| 'classes.md')` |
 | Change settings | `etch.acss.listSettingsAsync(q)`, `etch.acss.updateSettingsAsync({...})` (all-or-nothing; read `warnings`) | ACSS dashboard, or `wp acss settings set <key> <value>` (validates and regenerates CSS; `--skip-css` defers to `wp acss css regenerate`) |
 | Import/export | via settings API | `wp acss settings export/import` |
 | Health | — | `wp acss status`, `wp acss doctor` |
@@ -23,6 +24,11 @@ Studio. Pair with `etch-authoring` for where CSS goes.
 ACSS off → plain CSS with custom properties; never reference ACSS names.
 Never invent a token or class: confirm it in the live list or the references; if
 you can't, say so and use a locally scoped property (`--_gap: to-rem(24px)`).
+
+A site can also shadow ACSS names in a local variable collection — seen: `--primary`,
+`--primary-dark` and `--accent` redefined, and `--radius-s`, `--radius-xs`,
+`--space-2xs`, `--space-3xs` invented. Read the collection with
+`etch.styles.listVariables()` before assuming a name comes from ACSS.
 
 ## Token-first rules
 

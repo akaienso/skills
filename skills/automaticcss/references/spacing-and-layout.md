@@ -27,7 +27,14 @@ Source: https://docs.automaticcss.com/spacing/standard-spacing-setup
   - from s: `-s-to-xs`
 - **"Tweener" sizes:** use `calc()` and stay within about ±(scale midpoint), e.g. `calc(var(--space-l) / 1.1)`. If you'd need `calc(var(--space-m) * 1.5)`, that's just `--space-l`.
 
-> Conflict: whats-new-in-4 announces XXL → 2XL. The spacing docs use `xxl` everywhere. Confirm against the project's generated ACSS token/class list (Studio: `etch.skills.getReference('acss','tokens.md' | 'classes.md')`; WordPress: the generated stylesheet or `wp acss settings`).
+> Ruling (verified 2026-11-18 on a live ACSS 4 WordPress build): the XXL → 2XL
+> rename did not reach spacing. The generated CSS has `--space-xxl` and no
+> `--space-2xl`; sections use `.section--xxl`. `2xl` survives only in the icon
+> family (`.icon--2xl`, and no `.icon--xxl`). Use `xxl` for space, text, section,
+> header and button sizes and `2xl` for icons, and still confirm against the
+> project's own token/class list before writing either (Studio:
+> `etch.skills.getReference('acss','tokens.md' | 'classes.md')`; WordPress through
+> the Etch Connector: the same `getReference` calls).
 
 ```css
 .testimonial-card {
