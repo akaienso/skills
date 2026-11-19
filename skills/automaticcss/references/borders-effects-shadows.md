@@ -23,7 +23,11 @@ Scope: AutomaticCSS 4.x with Etch (EtchWP and Etch Studio). Names come from docs
 - Concentric radius: no token; use the `?concentric-radius` recipe (outer = `--inner-radius` + full padding since 4.0.2; children get `--inner-radius`) or `?concentric-radius-reverse` (4.0.2+; Etch also lists it).
 - Removed in 4.0: `.border`, `.border-dark`, `.border-light` utility classes. Border colors use `color-mix()`.
 
-> Conflict: the page lists width as `var(--border-size)` but its override example sets `--border-width`. The toolkit uses `--border-size`. Confirm in `tokens.md`.
+> Ruling (verified 2026-11-18 on a live ACSS 4 WordPress build): not a conflict.
+> The build generates both `--border-size` and `--border-width` at the same value,
+> and `--border` composes from `--border-size`. Either token works; prefer
+> `--border-size`. Sites already use `--border-width`, so never rewrite it on
+> sight.
 
 Source: https://docs.automaticcss.com/borders-dividers/global-border-system, https://docs.automaticcss.com/recipes/border-radius-recipes
 

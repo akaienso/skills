@@ -45,6 +45,7 @@ Source: https://docs.etchwp.com/studio/public-api, Etch Studio built-in guide (`
 
 - Field object: `{ key, name, type, required?, helpText?, placeholder?, defaultValue?, min?, max?, options?[{label,value}], trueLabel?, falseLabel?, showLabels?, target?, source? }`.
 - Field types: `text, textarea, number, link, email, boolean, select, image, relationship, relationshipList`, plus `relationshipBacklink` (written by Etch, rename only).
+- An image is not a fixed field: some types use an `image` field, others a plain `text` field holding an asset id (seen: `image_id` on the `news` type of mmpro/Rotary Blueprint). Call `listTypesAsync()` and read a type's fields before binding an image.
 - Items carry **no blocks**. To edit their blocks, open them with `navigation.openPostAsync(id)` / `openTemplateAsync(id)` and use `etch.blocks`.
 
 Errors:

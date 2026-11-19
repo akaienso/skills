@@ -10,11 +10,15 @@ templates as WordPress blocks, and its templates are saved into WordPress's Full
 Site Editing template system. Pair with `etch-authoring` (shared build rules) and
 `automaticcss` when ACSS is on.
 
+On WordPress, `etch.skills.list()` currently returns only `acss`: there is no live
+`etchwp` skill inside the builder, so the ACSS reference is the only live authority
+and the rest of this skill stands on its own.
+
 ## How EtchWP models a site
 
 | Need | EtchWP way |
 |---|---|
-| Layout shell | Template `index` (mandatory catch-all); recommended `single`, `archive`, `author`, `404`; also page and search templates |
+| Layout shell | Template `index` (mandatory catch-all); recommended `single`, `archive`, `author`, `404`; also page and search templates. Call `listTemplatesAsync()` before assuming any of them: real sites often have only `index` plus `404` and a `home` template, with no `single` |
 | A page's own content inside a template | Post content slot / `etch/render` |
 | Repeat content on a page | Loop element + a Loop Manager query (a custom query is required on pages) |
 | Repeat on an archive template | The **main query** (no custom query); the docs say it is meant for archive templates and may be empty elsewhere |

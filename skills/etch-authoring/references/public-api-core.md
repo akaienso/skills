@@ -16,12 +16,14 @@ Both products expose one scripting contract on `window.etch` (npm `@digital-grav
 | `ai` | yes | yes | in-memory, sync |
 | `environment`, `saveAsync`, `apiVersion`, `version` | yes | yes | — |
 | `assets` | partial ("EtchWP's partial implementation"; WP media + collections) | full asset store | immediate |
-| `loops` | yes | stub → `NOT_AVAILABLE` | buffered |
+| `loops` | yes (`capabilities.loops` is true; the registry is fully backed) | stub → `NOT_AVAILABLE` | buffered |
 | `fields` | yes | stub → `NOT_AVAILABLE` | immediate |
 | `dataSources`, `content`, `routes` | no | yes | immediate |
 | `deploy`, `presence`, `acss`, `connectAs` | not documented | not documented | unverified |
 
 Studio built-in guide: buffered = `blocks`, `styles`; immediate = `components`, `stylesheets`, `content`, `routes`, `dataSources`, `assets`. WP docs: buffered = `blocks`, `styles`, `loops`; immediate = `stylesheets`, `components`, `fields`, `assets`. Through the MCP (own headless builder) save when work is done; on a person's tab via the connector, leave saving to them unless asked. Always end by reporting what is unsaved and what was already written.
+
+`saveAsync()` resolves to `undefined`: it gives no confirmation, so verify a save another way — re-read the tree, or fetch the front end and look for the change. Removing a block is also not a one-step undo: deleting a block leaves behind the style record its class created (verified on a WordPress build: reverting an added section moved the style count 1,212 → 1,213). Delete that record too (`etch.styles.delete(id)`) and save again, or the revert leaves an orphan.
 
 Source: https://docs.etchwp.com/public-api, https://docs.etchwp.com/studio/public-api, https://docs.etchwp.com/etch-connector/ai-agent-guide, Etch Studio built-in guide (`etch.skills.get('etch-studio')`)
 

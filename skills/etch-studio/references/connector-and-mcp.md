@@ -26,7 +26,7 @@ Source: https://docs.etchwp.com/studio/mcp-server, https://docs.etchwp.com/studi
 | `open_project { tenant, project }` | Returns a handle, `othersPresent`, and `etch.environment`. |
 | `request_control { handle }` | Waits about 30 s for the answer. |
 | `get_guide` | Authoritative agent notes. Call it before the first `eval`. |
-| `eval` | Runs `code` as an async function body with `etch` in scope. Returns the result, errors and console logs. |
+| `eval { handle, code, timeoutMs? }` | Runs `code` as an async function body with `etch` in scope. Returns the result, errors and console logs. |
 | `screenshot` | A PNG of the builder or of one element. |
 | `close_project { handle, save }` | With `save: true`, saves first, and stays open if the save fails. |
 | `upload_assets` | Takes local file paths. |
@@ -36,14 +36,14 @@ Source: https://docs.etchwp.com/studio/mcp-server, https://docs.etchwp.com/studi
 
 **Session rules (web docs, server instructions and built-in guide agree):**
 1. Call `list_projects`, then `open_project`, then `get_guide`. Then read **every** skill: `etch.skills.list()`, and `etch.skills.get(name).content` for each one (`etch-studio`, `bem`, and `acss` when it's active).
-2. If `othersPresent` is non-empty, call `request_control` **before any edit**, because taking control reloads the builder and discards earlier edits.
+2. If `othersPresent` lists anyone **other than your own session** (`isYou: true`), call `request_control` **before any edit**, because taking control reloads the builder and discards earlier edits. Your own session shows up there after the first open, so a non-empty list is not by itself a reason to take control.
    - Ask the user first, unless the only entry is `isYou: true`.
    - If the answer is `granted: false`, tell the user and don't ask again unless they say so.
    - The other person sees **Save + Accept**, **Undo changes + Accept** or **Decline**. If they don't answer within 30 s, control passes and their unsaved changes are discarded.
 3. Without control, every write and save is refused.
 4. If saves start failing mid-session, a person took control: the builder saved and handed over after 30 s. Ask the user before requesting control again.
 5. `blocks` and `styles` live in memory until `await etch.saveAsync()`. Components, stylesheets, content, routes, data sources and assets are written immediately, even if the user says "don't save".
-6. **Idle timeout ≈ 10 minutes** with no call. After that the builder shuts down and unsaved work is lost. Save before pausing.
+6. **Idle timeout ≈ 10 minutes** with no call. After that the builder shuts down and unsaved work is lost. Save before pausing. A handle can also expire while you are still working — seen after ~2.5 minutes of continuous calls, returning `Unknown or expired handle: open the project again`. Reopen the project and continue; the old session stays listed in `othersPresent`.
 7. Finish with `close_project { save: true }` (or `hand_over_control` if staying open), then tell the user what was saved and what was already written.
 8. Branch on `etch.environment.capabilities`, not on the product name. Call `resolveAsync` on a data source before using its paths. Make every change through `etch.*`: no canvas DOM, no `<style>` injection.
 

@@ -169,6 +169,7 @@ etch.loops.setForBlock(blockId, { loopId, itemId: "post", indexId: "i", loopPara
 await etch.saveAsync();
 ```
 - `global: true` = reusable; `false` = local to the document.
+- Enumerate with `getAll()`, never `list()`: there is no `etch.loops.list`, and calling it throws a bare `TypeError: etch.loops.list is not a function` — not an `EtchApiError`, so no code to catch on. `getAll()` returns an object keyed by loop id, not an array; iterate with `Object.entries()`.
 - Param expressions: `NumericParam = number | "$x" | "$x ?? 10"`; `BooleanParam = boolean | 0 | 1 | "$x" | "$x ?? true"`. Note `loopParams` keys drop the `$` (`{ count: 3 }`).
 - Typed `WpQueryArgs`: `post_type, posts_per_page, offset, paged, page, orderby, order, post_status, ignore_sticky_posts, author, author_name, category, category_name, tag, tax_query, meta_query, s` (open-ended).
 - `TaxQueryItem`: `taxonomy, field ("term_id"|"slug"|"name"), terms, operator?, include_children?`. `MetaQueryItem`: `key, value, compare?, type?`.

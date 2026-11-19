@@ -12,13 +12,20 @@ WordPress**: no PHP, post types, taxonomies, `WP_Query`, Loop Manager, hooks or
 
 ## Session protocol (MCP)
 
-1. `list_projects` → `open_project { tenant, project }`. Keep the handle.
+1. `list_projects` → `open_project { tenant, project }`, where `project` is the
+   project **id** from that list, not its name: a name comes back as the bare
+   string `No such project`, with no error code. Keep the handle — it can expire
+   mid-session (seen after ~2.5 minutes of continuous calls, well inside the idle
+   window), and the fix is to `open_project` again and carry on.
 2. Read `othersPresent`. Someone else in: ask the user before `request_control`.
    Only the user's own tab (`isYou`): call it. Taking control reloads the builder,
-   so take it **before** editing.
+   so take it **before** editing. Your own session also appears there as
+   `{ name: "OpenBot", isYou: true }`, which is not someone else.
 3. `get_guide` once; then read every `etch.skills.list()` entry. Read
-   `etch.environment.capabilities` and branch on them (the built-in guide says
-   `etch.loops` and `etch.fields` are not implemented in Studio).
+   `etch.environment.capabilities` and branch on them. On the current Studio build
+   `capabilities.loops` and `capabilities.fields` are `false`: the namespaces exist
+   but every call throws `EtchApiError NOT_AVAILABLE`. Loops and fields belong to
+   EtchWP, not Studio.
 4. Work in `eval` scripts that return compact summaries. Builder idles out after
    ~10 minutes without a call; unsaved buffered edits are lost.
 5. `await etch.saveAsync()` for blocks and styles. Finish with
