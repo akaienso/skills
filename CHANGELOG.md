@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/akaienso/skills/compare/v1.0.1...v1.0.2) (2026-11-19)
+
+
+### Bug Fixes
+
+* keep the tested project's name out of the public skill ([#7](https://github.com/akaienso/skills/issues/7)) ([cff7c28](https://github.com/akaienso/skills/commit/cff7c284aba1b6d427e41755f7ca4cdcf7075ad7))
+
 ## [1.0.1](https://github.com/akaienso/skills/compare/v1.0.0...v1.0.1) (2026-11-19)
 
 
